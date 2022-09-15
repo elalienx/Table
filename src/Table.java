@@ -1,4 +1,3 @@
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -38,18 +37,29 @@ public class Table {
         return result.toString();
     }
 
+    private String createBorderCell(int width) {
+        char character = '-';
+        int padding = 2;
+        char[] repeatCharacters = new char[width + padding];
+        String result;
+
+        Arrays.fill(repeatCharacters, character);
+        result = new String(repeatCharacters);
+
+        return result;
+    }
+
     private void generateBorder() {
-        List<String> tableCells = new ArrayList<>();
+        StringBuilder result = new StringBuilder();
 
         for (Integer item : columnWidths) {
-            char[] repeat = new char[item];
-            Arrays.fill(repeat, '-');
-            String result = new String(repeat);
+            String cell = createBorderCell(item);
 
-            tableCells.add(result);
+            result.append("+").append(cell);
         }
+        result.append("+");
 
-        System.out.format(format, tableCells.toArray());
+        System.out.println(result);
     }
 
     private void generateHeader() {
